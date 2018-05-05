@@ -30,7 +30,7 @@
 }
 
 .sign-in-out span {
-  color: hsl(0, 28%, 50%);
+  color: red;
   font-size: 0.9rem;
   font-weight: bold;
   line-height: 30px;

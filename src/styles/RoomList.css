@@ -46,12 +46,13 @@ form#create-room {
   height: 2.5rem;
   float: left;
   font-size: 1rem;
+  font-weight: bold;
 }
 
 #create-room input[type="submit"] {
   border: none;
   padding: 0.1rem;
-  color: rgba(50, 69, 220, 0.5);
+  color: red;
   width: 10%;
   font-size: 1.5rem;
   float: left;
