@@ -18,6 +18,9 @@ class RoomList extends Component {
       this.setState({ rooms: this.state.rooms.concat( room ) })
       if (this.state.rooms.length === 1) { this.props.setActiveRoom(room) }
     });
+    this.roomsRef.on('child_removed', snapshot => {
+	this.setState({ rooms: this.state.rooms.filter( room => room.key !== snapshot.key) })
+    });
   }
   
   createRoom(newRoomName) {
@@ -37,12 +40,17 @@ class RoomList extends Component {
     this.createRoom(this.state.newRoomName);
   }
   
+  removeRoom(room) {
+    this.roomsRef.child(room.key).remove();
+  }
+  
   render() {
     return (
         <section className="room-list">
             {this.state.rooms.map( room => 
                 <li key={room.key} >
                   <button className="room-name" onClick={ () => this.props.setActiveRoom(room) }>{ room.name }</button>
+		  <button onClick={ () => this.removeRoom(room) } className="remove-room-button">&times;</button>
                 </li>
             )}
             <form id="create-room" onSubmit={ (e) => { this.handleSubmit(e) } }>

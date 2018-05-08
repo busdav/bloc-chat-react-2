@@ -21,6 +21,17 @@
   transform: translateY(3px);
 }
 
+
+#room-list .remove {
+  float: right;
+  font-size: 0.7rem;
+  color: rgb(0, 140, 50);
+}
+
+#room-list li:hover .remove {
+  color: hsl(0, 150, 60);
+}
+
 form#create-room {
   margin-right: 0;
   right: 0;

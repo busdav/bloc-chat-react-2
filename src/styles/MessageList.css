@@ -30,6 +30,16 @@ h2.room-name {
   width: 90%;
 }
 
+#message-info .remove {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(-0.05rem);
+  color: #aaa;
+}
+#message-list li:hover .remove {
+  opacity: 1;
+}
+
 #create-message {
   bottom: 0;
   height: 40px;

@@ -20,6 +20,11 @@ class Messages extends Component {
         this.showMessages( this.props.activeRoom )
       });
     });
+    this.messagesRef.on('child_removed', snapshot  => {
+      this.setState({ allMessages: this.state.allMessages.filter( message => message.key !== snapshot.key )  }, () => {
+        this.showMessages( this.props.activeRoom )
+      });
+    });
   }
   
   componentWillReceiveProps(nextProps) {
@@ -36,9 +41,12 @@ class Messages extends Component {
     this.setState({ newMessageText: '' });
   }
 
-  
   handleChange(e) {
     this.setState({newMessageText: e.target.value });
+  }
+  
+  removeMessage(activeRoom) {
+    this.messagesRef.child(activeRoom.key).remove();
   }
   
   showMessages(activeRoom) {
@@ -52,12 +60,15 @@ class Messages extends Component {
         <ul id="message-list">
           {this.state.displayedMessages.map( message => 
             <li key={message.key}>
-              <div className="username">
-                 { message.username }
-              </div>
-              <div className="content">
-                 { message.content }
-              </div>
+	      <section className="message-info">
+                <div className="username">
+                  { message.username }
+                </div>
+                <div className="content">
+                  { message.content }
+                </div>
+                <button onClick={ () => this.removeMessage(message) } className="remove remove-message-button">&times;</button>
+              </section>
             </li>
           )}
         </ul>
