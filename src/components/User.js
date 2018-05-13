@@ -11,11 +11,16 @@ class User extends Component {
   
   signIn() {
     const provider = new this.props.firebase.auth.GoogleAuthProvider();
-    this.props.firebase.auth().signInWithPopup( provider );
+    this.props.firebase.auth().signInWithPopup( provider ).then((result) => {
+	const user = result.user;
+	this.props.setUser(user);
+    });
   }
   
   signOut() {
-    this.props.firebase.auth().signOut();
+    this.props.firebase.auth().signOut().then(() => {
+	this.props.setUser(null);
+    });
   }
   
   render() {

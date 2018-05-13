@@ -50,7 +50,6 @@ class RoomList extends Component {
             {this.state.rooms.map( room => 
                 <li key={room.key} >
                   <button className="room-name" onClick={ () => this.props.setActiveRoom(room) }>{ room.name }</button>
-		  <button onClick={ () => this.removeRoom(room) } className="remove-room-button">&times;</button>
                 </li>
             )}
             <form id="create-room" onSubmit={ (e) => { this.handleSubmit(e) } }>

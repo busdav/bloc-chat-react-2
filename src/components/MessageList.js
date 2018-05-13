@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import Moment from 'react-moment';
+import {Button} from 'react-bootstrap';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import { faTrashAlt } from '@fortawesome/fontawesome-free-solid';
 import '.././styles/MessageList.css';
 
 class Messages extends Component {
@@ -33,15 +37,16 @@ class Messages extends Component {
 
   createMessage(newMessageText) {
     this.messagesRef.push({
-        username: (this.props.user ? this.props.user : 'Noreena'),
+        username: this.props.user ? this.props.user.displayName : 'Guest',
         content: newMessageText,
-        sentAt: Date.now(),
+        sentAt: this.props.firebase.database.ServerValue.TIMESTAMP,
         roomId: this.props.activeRoom.key,
       });
     this.setState({ newMessageText: '' });
   }
 
   handleChange(e) {
+    e.preventDefault();
     this.setState({newMessageText: e.target.value });
   }
   
@@ -59,21 +64,24 @@ class Messages extends Component {
         <h2 className="room-name">{ this.props.activeRoom ? this.props.activeRoom.name : '' }</h2>
         <ul id="message-list">
           {this.state.displayedMessages.map( message => 
-            <li key={message.key}>
-	      <section className="message-info">
+            <li className="message-info" key={message.key}>
                 <div className="username">
                   { message.username }
                 </div>
-                <div className="content">
-                  { message.content }
-                </div>
-                <button onClick={ () => this.removeMessage(message) } className="remove remove-message-button">&times;</button>
-              </section>
+	        <div className="content">
+	  	  { message.content }
+		</div>
+		<Moment element="span" format="MM/DD/YY hh:mm A" className="sent-at">
+	  	  { message.sentAt }
+		</Moment>
+                <Button type="button" className="btn-remove-msg" onClick={() => this.removeMessage(message)} >
+                  <FontAwesomeIcon icon={faTrashAlt}/>
+                </Button>
             </li>
           )}
         </ul>
         <form id="create-message" onSubmit={ (e) => { e.preventDefault(); this.createMessage(this.state.newMessageText) } }>
-          <input type="text" value={ this.state.newMessageText } onChange={ this.handleChange.bind(this) }  name="newMessageText" placeholder="Write your message here..." />
+          <input type="text" value={ this.state.newMessageText } onChange={ this.handleChange.bind(this) } name="newMessageText" placeholder="Write your message here..." />
           <input type="submit" value="Send"/>
         </form>
       </main>

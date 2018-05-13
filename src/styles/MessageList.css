@@ -16,28 +16,55 @@ h2.room-name {
   padding: 1rem 1rem 1rem;
 }
 
+#message-list {
+  padding-bottom: 4rem;
+  width: 93%;
+}
+
 #message-list li {
+  background-color: white;
   list-style-type: none;
-  font-size: 0.85rem;
-  clear: both;
-  overflow: hidden;
-  margin-bottom: 0.5rem;
 }
 
-#message-list li .content {
-  color: black;
-  display: inline-block;
-  width: 90%;
+#message-list li:nth-child(odd) {
+  background-color: rgba(66, 61, 48, 0.1);
 }
 
-#message-info .remove {
-  display: inline-block;
-  opacity: 0;
-  transform: translateY(-0.05rem);
-  color: #aaa;
+.username {
+  color: #a0a0a0;
+  font-weight: bold;
+  padding-top: .15rem;
+  margin: 0;
 }
-#message-list li:hover .remove {
-  opacity: 1;
+
+.content {
+  display: inline-block;
+  font-size: 1rem;
+  padding-bottom: .5rem;
+}
+
+.btn-remove-msg {
+  color: #ff911d;
+  border: none;
+  background:none;
+}
+
+.btn-remove-msg:hover {
+  cursor: pointer;
+}
+
+.sent-at {
+  float: right;
+  font-size: .75rem;
+  padding: .25rem;
+}
+
+.msg-updated-at {
+  float: right;
+  font-size: .75rem;
+  background: none;
+  padding-top: .5rem;
+  padding-right: .5rem;
 }
 
 #create-message {
@@ -49,7 +76,7 @@ h2.room-name {
 }
 #create-message input[type="text"] {
   box-sizing: border-box;
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   margin: 0;
   padding: 0.5;
   width: 85%;
